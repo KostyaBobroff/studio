@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Заказ #{{ o.pk }}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
+        <style>
+            .centered{
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+            <h1 class="centered">Заказ #{{ o.pk }}</h1>
+            <div class="row">
+                <div class="col-md-8 mx-auto"style="margin-top: 30px;">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="col">Модель</th>
+                                <th class="col">Материал</th>
+                                <th class="col">Цвет</th>
+                                <th class="col">Цена</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in o.items.all %}
+                                <tr>
+                                    <td>{{ item.model_from_catalog.name }}</td>
+                                    <td>{{ item.material.name }}</td>
+                                    <td>{{ item.color.name }}</td>
+                                    <td>{{ item.sewing_cost }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mx-auto" style="margin-top:40px">
+                    <div class="col-md-4">Закройщик: {{ o.cutter.username }}</div>
+                    <div class="col-md-4">Дата заказа: {{ o.order_date }}</div>
+                    <div class="col-md-4">Стоимость: {{ o.price }}</div>
+                </div>
+            </div>
+
+    </body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'account/base.html' %}
+
+{% load staticfiles %}
+
+{% block account_content %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Дата заказа</th>
+                <th scope="col">Дата выполнения</th>
+                <th scope="col">Портной</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Кол-во позиций</th>
+                <th scope="col">Цена, руб.</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%  for o in orders %}
+                <tr>
+                    <td>{{ o.id }}</td>
+                    <td>{{ o.order_date }}</td>
+                    <td>{{ o.date_of_completion }}</td>
+                    <td>{{ o.cutter.username }}</td>
+                    <td>{{ o.get_status_display }}</td>
+                    <td>{{ o.items.count }}</td>
+                    <td>{{ o.price }}</td>
+                    <td>
+                        <a href="{% url 'account.bill' o.id  %}">Чек</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

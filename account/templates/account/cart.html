@@ -1,0 +1,59 @@
+{% extends 'account/base.html' %}
+
+{% load staticfiles %}
+
+{% block account_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {#                {% for o in order %}#}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Модель</th>
+                        <th scope="col">Материал</th>
+                        <th scope="col">Цвет</th>
+                        <th scope="col">Цена</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in order.items.all %}
+                        <tr>
+                            <td>{{ item.model_from_catalog }}</td>
+                            <td>{{ item.material }}</td>
+                            <td>{{ item.color }}</td>
+                            <td>{{ item.sewing_cost }}</td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <form method="post"  action={% url 'shop:pay_order' %} >
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.pk }}">
+                    <select name="cutter">
+                        {% for c in cutters %}
+                            <option value="{{ c.id }}">{{ c.username }}</option>
+                        {% endfor %}
+                    </select>
+                    <input class='btn btn-primary' type="submit" name="add" value="Оплатить" />
+                    <input class='btn btn-primary' type="submit" name="delete" value="Очистить корзину" />
+                </form>
+            </div>
+            <div class="col-md-4">
+                <p>Общая цена : {{ order.price }} рублей</p>
+                <p>Будет выполнено : {{ order.date_of_completion }}</p>
+                {% if order.status == 'unpaid' %}
+                    <p>Статус: не оплачено</p>
+                {% endif %}
+                {% if order.status == 'work' %}
+                    <p>Статус: в работе</p>
+                {% endif %}
+                {% if order.status == 'ready' %}
+                    <p>Статус: Готово</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

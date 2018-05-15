@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                {#                {% for o in order %}#}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Модель</th>
+                        <th scope="col">Материал</th>
+                        <th scope="col">Цвет</th>
+                        <th scope="col">Цена</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in order.items.all %}
+                        <tr>
+                            <td>{{ item.model_from_catalog }}</td>
+                            <td>{{ item.material }}</td>
+                            <td>{{ item.color }}</td>
+                            <td>{{ item.sewing_cost }}</td>
+
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <form method="get"  action={% url 'shop:pay_order' %} >
+                    <input type="hidden" name="order_id" value="{{ order.pk }}">
+                    <input class='btn btn-primary' type="submit" name="add" value="Оплатить" />
+                    <input class='btn btn-primary' type="submit" name="delete" value="Очистить корзину" />
+                </form>
+            </div>
+            <div class="col-md-4">
+                <p>Общая цена : {{ o.price }} рублей</p>
+                <p>Будет выполнено : {{ o.date_of_completion }}</p>
+                {% if o.status == 'unpaid' %}
+                    <p>Статус: не оплачено</p>
+                {% endif %}
+                {% if o.status == 'work' %}
+                    <p>Статус: в работе</p>
+                {% endif %}
+                {% if o.status == 'ready' %}
+                    <p>Статус: Готово</p>
+                {% endif %}
+
+            </div>
+            {#                {% endfor %}#}
+
+
+        </div>
+    </div>
+{% endblock %}

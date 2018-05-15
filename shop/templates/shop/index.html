@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for model in catalog %}
+            <div class='col-md-4' style="margin:15px 0px">
+                <form class="order-item-form" method="get"  action={% url 'shop:add_to_cart' %} >
+                    <input type="hidden" name="model" value="{{ model.id }}" class="model">
+                    <div class="card text-center">
+                        <img class="card-img-top " style="height:300px;width:300px; margin: auto" src="{{ model.image.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ model.name }}</h5>
+                            <p class="card-subtitle mb-2 text-muted">{{ model.type.name }}</p>
+                            <p class="price">{{ price }}</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Цвет</label>
+                                    <select class="form-control color" name="color" >
+                                        {% for c in model.colors.all%}
+                                            <option value={{ c.pk }}>{{ c.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Материал</label>
+                                    <select class="form-control material" name="material" value="-1">
+                                        {% for m in model.materials.all %}
+                                            <option value={{ m.pk }}>{{ m.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+{#                                <div class="col-md-4">#}
+{#                                    <label>Закройщик</label>#}
+{#                                    <select class="form-control cutter" name="cutter" >#}
+{#                                        {% for cutter in cutters %}#}
+{#                                            <option value={{ cutter.pk }}>{{ cutter.username }}</option>#}
+{#                                        {% endfor %}#}
+{#                                    </select>#}
+{#                                </div>#}
+                            </div>
+                            <button type="submit" class="btn btn-info btn-block add-order-item-to-cart" style="margin-top:10px" id="sub_button">Добавить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block add_script %}
+    <script src={% static 'js/shop.js' %}></script>
+{% endblock %}

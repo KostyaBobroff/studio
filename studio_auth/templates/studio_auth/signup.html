@@ -1,0 +1,72 @@
+{#{% extends 'base.html' %}#}
+{% extends 'auth_base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-md-4">
+                <form action="{% url 'studio_auth.signup' %}" method="post">
+
+                    {% csrf_token %}
+                    <ul>
+                        {% for e in form.non_field_errors %}
+                            <li class="form-text text-danger"><small>{{ e }}</small></li>
+                        {% endfor %}
+                    </ul>
+
+
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input
+                                type="text" class="form-control" value="{% if form.username.value %}{{form.username.value}}{% endif %}"
+                                name='username' placeholder="Enter email">
+                        <small class="form-text text-danger">{{ form.username.errors }}</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control"
+                               name="password" placeholder="Enter password">
+                        <small class="form-text text-danger">{{ form.password.errors }}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control"
+                               name="repeat_password" placeholder="Repeat password">
+                        <small class="form-text text-danger">{{ form.repeat_password.errors }}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>Ваши мерки</legend>
+                                <label>Длина рук, м</label>
+                                <input
+                                        type="text" class="form-control" name="length_of_arms"
+                                        placeholder="0.0" value="{% if form.length_of_arms.value %}{{form.length_of_arms.value}}{% endif %}">
+                                <small class="form-text text-danger">{{ form.length_of_arms.errors }}</small>
+                                <label>Длина ног, м</label>
+                                <input
+                                        type="text" class="form-control" name="length_of_legs"
+                                        placeholder="0.0" value="{% if form.length_of_legs.value %}{{form.length_of_legs.value}}{% endif %}">
+                                <small class="form-text text-danger">{{ form.length_of_legs.errors }}</small>
+                                <label>Полуобхват талии, м</label>
+                                <input
+                                        type="text" class="form-control" name="length_of_waist_girth"
+                                        placeholder="0.0" value="{% if form.length_of_waist_girth.value %}{{form.length_of_waist_girth.value}}{% endif %}">
+                                <small class="form-text text-danger">{{ form.length_of_waist_girth.errors }}</small>
+                                <label> Полуобхват головы, м</label>
+                                <input
+                                        type="text" class="form-control" name="length_of_head"
+                                        placeholder="0.0" value="{% if form.length_of_head.value %}{{form.length_of_head.value}}{% endif %}">
+                                <small class="form-text text-danger">{{ form.length_of_head.errors }}</small>
+                        </fieldset>
+                    </div>
+                    <button type="submit" class="btn btn-info btn-block">Sign Up</button>
+
+                    <a href='{% url "studio_auth.login" %}' style="margin: 15px auto">Log in</a>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
