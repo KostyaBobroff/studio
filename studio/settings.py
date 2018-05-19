@@ -58,11 +58,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'studio.urls'
-
+LOGOUT_REDIRECT_URL = '/auth/login'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'studio_auth', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

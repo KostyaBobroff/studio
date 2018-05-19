@@ -13,7 +13,7 @@ class User(AbstractUser):
     length_of_head = models.FloatField(default=0.0, verbose_name='Обхват головы')
 
     def __str__(self):
-        return self.username
+        return ' '.join([self.first_name, self.last_name])
 
     def get_material_footage(self, model_id):
         model = Catalog.objects.get(pk=model_id)

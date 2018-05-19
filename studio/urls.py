@@ -20,8 +20,8 @@ from django.conf.urls.static import static
 from studio_auth.admin import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shop/', include('shop.urls')),
+    path('', include('shop.urls')),
     path('auth/', include('studio_auth.urls')),
     path('account/', include('account.urls')),
-    path('myadmin/', admin_site.urls)
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -54,13 +54,15 @@ def signup(request):
                 data = form.cleaned_data
                 user = User.objects.create_user(username=data['username'], password=data['password'],
                                                 length_of_arms=data['length_of_arms'],
-                                                lenghth_of_legs=data['length_of_legs'],
+                                                length_of_legs=data['length_of_legs'],
                                                 length_of_waist_girth=data['length_of_waist_girth'],
                                                 length_of_head=data['length_of_head']
 
                                                 )
                 user.save()
-                return redirect('studio_auth.login')
+                login(request, user)
+                return redirect('shop:index')
+                #return redirect('studio_auth.login')
             except IntegrityError:
                 return HttpResponse('Error')
         else:

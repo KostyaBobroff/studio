@@ -34,7 +34,7 @@
                     <input type="hidden" name="order_id" value="{{ order.pk }}">
                     <select name="cutter">
                         {% for c in cutters %}
-                            <option value="{{ c.id }}">{{ c.username }}</option>
+                            <option value="{{ c.id }}">{{ c }}</option>
                         {% endfor %}
                     </select>
                     <input class='btn btn-primary' type="submit" name="add" value="Оплатить" />

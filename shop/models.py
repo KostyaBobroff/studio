@@ -52,7 +52,7 @@ class OrderItem(models.Model):
     sewing_cost = models.FloatField(blank=True, null=True)
 
     def __str__(self):
-        return ' '.join['orderItem', str(self.pk)]
+        return str(self.pk)
 
 
 STATUS_CHOICE = (
@@ -71,6 +71,9 @@ class Order(models.Model):
     date_of_completion = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS_CHOICE, default='unpaid', max_length=10)
     active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return 'Order %s' % self.pk
 
     def calc_price(self):
         self.price = 34

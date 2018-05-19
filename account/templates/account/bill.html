@@ -37,11 +37,13 @@
                     </table>
                 </div>
                 <div class="row mx-auto" style="margin-top:40px">
-                    <div class="col-md-4">Закройщик: {{ o.cutter.username }}</div>
+                    <div class="col-md-4">Закройщик: {{ o.cutter }}</div>
                     <div class="col-md-4">Дата заказа: {{ o.order_date }}</div>
                     <div class="col-md-4">Стоимость: {{ o.price }}</div>
                 </div>
             </div>
-
+            <script>
+                window.print()
+            </script>
     </body>
 </html>

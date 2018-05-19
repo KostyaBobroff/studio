@@ -33,20 +33,4 @@ $(function() {
         })
     })
 });
-// ,$('.material').change(function() {
-//         var $form = $(this).parent();
-//         $.ajax({
-//             type:"GET",
-//             url: "shop/",
-//             data:{
-//                 'material_id': $form.find('#material').val()
-//             },
-//             success: function (data) {
-//                 alert(data)
-//             }
-//
-//
-//         })
-//
-//     })
 
